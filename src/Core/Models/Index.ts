@@ -5,7 +5,7 @@ export interface MUser {
 }
 
 export interface MCustomer {
-  id: string;
+  id: number;
   name: string;
   mobileNumber: string;
   address: string;
@@ -14,7 +14,8 @@ export interface MCustomer {
 }
 
 export interface MEntry {
-  id: string;
+  id: number;
+  customerId : string;
   type: "given" | "taken" | "penalty";
   amount: number;
   desc: string;
