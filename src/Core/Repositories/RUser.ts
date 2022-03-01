@@ -16,7 +16,7 @@ export interface RUser {
   updateBackupInfo: (value: MBackupInfo) => Promise<void>;
 }
 
-class MockUserRepo implements RUser {
+export class MockUserRepo implements RUser {
   async createUser(value: MUser) {
     mockUser = value;
   }

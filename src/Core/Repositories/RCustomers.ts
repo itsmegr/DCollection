@@ -16,7 +16,7 @@ interface IUpdateEntryArgs {
   bills?: string[];
 }
 
-interface RCustomers {
+export interface RCustomers {
   addCustomer: (value: MCustomer) => Promise<void>;
   getCustomers: () => Promise<MCustomer[]>;
   updateCustomer: (id: number, newValue: IUpdateCustomerArgs) => Promise<void>;

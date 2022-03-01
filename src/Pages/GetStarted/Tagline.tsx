@@ -9,7 +9,6 @@ export default function TagLine() {
   );
 }
 
-
 const styles = StyleSheet.create({
   descView: {
     width: "60%",
@@ -20,4 +19,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-

@@ -15,8 +15,8 @@ export interface MCustomer {
 
 export interface MEntry {
   id: number;
-  customerId : string;
-  type: "given" | "taken" | "penalty";
+  customerId : number;
+  type: "given" | "collected" | "penalty";
   amount: number;
   desc: string;
   timeStamp: Date;

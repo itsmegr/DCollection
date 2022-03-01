@@ -19,6 +19,5 @@ const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
     backgroundColor: Colors.background,
-    // minHeight: layout.window.height,
   },
 });

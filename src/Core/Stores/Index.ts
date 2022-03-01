@@ -3,14 +3,14 @@ import { MCustomer, MEntry } from "../Models/Index";
 import SCustomers from "./SCustomers";
 import SUser from "./SUser";
 
-configure({
-  enforceActions: "always",
-});
+// configure({
+//   enforceActions: "always",
+// });
 
 export interface ICustomerSummary {
-  customerId: string;
+  customerId: number;
   customerName: string;
-  lastEntryTimeStamp: number;
+  lastEntryTimeStamp: Date;
   totalGiven: number;
   totalCollected: number;
 }
