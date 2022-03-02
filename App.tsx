@@ -18,7 +18,7 @@ export default function App() {
         UserStore: new SUser(new MockUserRepo()),
       }}
     >
-      <AddCustomer/>
+      <Dashboard/>
     </StoresContext.Provider>
   );
 }

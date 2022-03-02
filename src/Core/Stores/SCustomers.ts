@@ -17,22 +17,31 @@ import { ICustomerData, ICustomerSummary, IDashBoardData } from "./Index";
 export default class SCustomers {
   customers: MCustomer[] = [];
   entries: MEntry[] = [];
+  isLoading: boolean = true;
 
   constructor(private customersRepo: RCustomers) {
     makeObservable(this, {
       customers: observable,
       entries: observable,
+      isLoading : observable,
       fetchData: action,
       fetchCustomers: action,
       fetchEntries: action,
       dashBoardData: computed,
+
     });
+    this.isLoading = true;
+    this.fetchData();
   }
 
   async fetchData() {
     //fetch customers and entries
     await this.fetchCustomers();
     await this.fetchEntries();
+    console.log("data fetched");
+    runInAction(() => {
+      this.isLoading = false;
+    });
   }
 
   async fetchCustomers() {
@@ -43,9 +52,9 @@ export default class SCustomers {
     });
   }
 
-  async addCustomer(value : MCustomer) {
+  async addCustomer(value: MCustomer) {
     console.log("Data added", value);
-    
+
     this.customersRepo.addCustomer(value);
   }
 
@@ -65,7 +74,6 @@ export default class SCustomers {
   async updateEntry() {}
 
   async deleteEntry() {}
-
 
   get dashBoardData(): IDashBoardData {
     /*

@@ -18,25 +18,31 @@ import Button from "../../Atoms/Button";
 import AddCustomerButton from "./AddCustomerButton";
 import CustomerScrollView from "./CustomerScrollView";
 import { useStores } from "../../Providers/StoresProvider";
+import { Observer } from "mobx-react-lite";
+import ActivityLoaderModal from "../../Atoms/ActivityLoaderModal";
 
 export default function Dashboard() {
-  const { CustomersStore } = useStores();
-  useEffect(() => {
-    //Runs only on the first render
-    CustomersStore.fetchData();
-  }, []);
-
   return (
-    <Screen>
-      <StatusBar backgroundColor={Colors.primaryBlue}></StatusBar>
-      <HeaderWithIconText
-        icon={"notebook"}
-        text={"My Business"}
-        handleIconPress={() => {}}
-        bold
-      />
-      <CustomerScrollView />
-      <AddCustomerButton />
-    </Screen>
+    <Observer>
+      {() => {
+        const { CustomersStore } = useStores();
+        return (
+          <Screen>
+            <ActivityLoaderModal
+              isModalVisible={CustomersStore.isLoading}
+            ></ActivityLoaderModal>
+            <StatusBar backgroundColor={Colors.primaryBlue}></StatusBar>
+            <HeaderWithIconText
+              icon={"notebook"}
+              text={"My Business"}
+              handleIconPress={() => {}}
+              bold
+            />
+            <CustomerScrollView />
+            <AddCustomerButton />
+          </Screen>
+        );
+      }}
+    </Observer>
   );
 }
