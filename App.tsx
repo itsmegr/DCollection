@@ -8,7 +8,10 @@ import Dashboard from "./src/Pages/Dashboard/Index";
 import GetStarted from "./src/Pages/GetStarted/Index";
 import { StoresContext } from "./src/Providers/StoresProvider";
 import {Text} from "react-native"
-import AddCustomer from "./src/Pages/AddCustomer.tsx/Index";
+import AddCustomer from "./src/Pages/AddCustomer/Index";
+import CustomerEntries from "./src/Pages/CustomerEntries/Index"
+import EntryForm from "./src/Pages/EntryForm/Index";
+
 
 export default function App() {
   return (
@@ -18,7 +21,7 @@ export default function App() {
         UserStore: new SUser(new MockUserRepo()),
       }}
     >
-      <Dashboard/>
+      <CustomerEntries/>
     </StoresContext.Provider>
   );
 }

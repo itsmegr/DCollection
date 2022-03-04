@@ -23,12 +23,11 @@ export default class SCustomers {
     makeObservable(this, {
       customers: observable,
       entries: observable,
-      isLoading : observable,
+      isLoading: observable,
       fetchData: action,
       fetchCustomers: action,
       fetchEntries: action,
       dashBoardData: computed,
-
     });
     this.isLoading = true;
     this.fetchData();
@@ -53,9 +52,46 @@ export default class SCustomers {
   }
 
   async addCustomer(value: MCustomer) {
-    console.log("Data added", value);
-
     this.customersRepo.addCustomer(value);
+  }
+
+  //this returns the data for customer summary
+  getCustomerData(id: number): ICustomerData {
+    /*
+        customer : MCustomer;
+        totalGiven : number;
+        totalCollected : number;
+        entries : MEntry[]
+      */
+    let customer: MCustomer = {} as MCustomer;
+    let totalGiven = 0,
+      totalCollected = 0;
+    let customerEntries: MEntry[] = [];
+    for (let element of this.customers) {
+      if (element.id === id) {
+        customer = element;
+        break;
+      }
+    }
+    
+    for (let entry of this.entries) {
+      if (entry.customerId === id) {
+        customerEntries.push(entry);
+        if (entry.type === "collected") {
+          totalCollected += entry.amount;
+        } else {
+          totalGiven += entry.amount;
+        }
+      }
+    }
+    let res = {
+      customer: customer,
+      totalGiven: totalGiven,
+      totalCollected: totalCollected,
+      entries: customerEntries,
+    };
+    
+    return res
   }
 
   async updateCustomer() {}
@@ -69,7 +105,10 @@ export default class SCustomers {
     });
   }
 
-  async addEntry() {}
+  async addEntry(value : MEntry) {
+    await this.customersRepo.addEntry(value)
+    await this.fetchEntries();
+  }
 
   async updateEntry() {}
 
@@ -85,39 +124,27 @@ export default class SCustomers {
       totalCollected = 0;
     let dict: { [name: number]: ICustomerSummary } = {};
 
+    for (let customer of this.customers) {
+      dict[customer.id] = {
+        customerId: customer.id,
+        customerName: customer.name,
+        lastEntryTimeStamp: customer.createdAt,
+        totalCollected: 0,
+        totalGiven: 0,
+      };
+    }
+
     for (let entry of this.entries) {
-      if (!dict[entry.customerId]) {
-        //first entry for that customer
-        let customerName: string;
-        const ind = this.customers.findIndex(
-          (ele) => ele.id === entry.customerId
-        );
-        if (ind < 0) continue;
-
-        customerName = this.customers[ind].name;
-
-        dict[entry.customerId] = {
-          customerId: entry.customerId,
-          customerName: customerName,
-          lastEntryTimeStamp: entry.timeStamp,
-          totalCollected: entry.type === "collected" ? entry.amount : 0,
-          totalGiven:
-            entry.type === "given" || entry.type === "penalty"
-              ? entry.amount
-              : 0,
-        };
+      dict[entry.customerId].lastEntryTimeStamp = getLatestTimestamp(
+        dict[entry.customerId].lastEntryTimeStamp,
+        entry.timeStamp
+      );
+      if (entry.type === "collected") {
+        dict[entry.customerId].totalCollected += entry.amount;
       } else {
-        //has already entries
-        dict[entry.customerId].lastEntryTimeStamp = getLatestTimestamp(
-          dict[entry.customerId].lastEntryTimeStamp,
-          entry.timeStamp
-        );
-        if (entry.type === "collected") {
-          dict[entry.customerId].totalCollected += entry.amount;
-        } else {
-          dict[entry.customerId].totalGiven += entry.amount;
-        }
+        dict[entry.customerId].totalGiven += entry.amount;
       }
+
       if (entry.type === "collected") {
         totalCollected += entry.amount;
       } else {

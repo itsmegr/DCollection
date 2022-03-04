@@ -56,7 +56,7 @@ function SummaryBox({ givenAmount, collectedAmount }: props) {
         }}
       >
         <MoneyTextWithSomeDetailText
-          color={Colors.primaryGreen}
+          color={Colors.primaryRed}
           amount={givenAmount}
           textBelow="Total given"
           moneyTextSize={20}
@@ -64,7 +64,7 @@ function SummaryBox({ givenAmount, collectedAmount }: props) {
         />
         <MoneyBoxSeparator />
         <MoneyTextWithSomeDetailText
-          color={Colors.primaryRed}
+          color={Colors.primaryGreen}
           amount={collectedAmount}
           textBelow="Total Collected"
           moneyTextSize={20}

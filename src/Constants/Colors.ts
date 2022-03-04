@@ -6,6 +6,7 @@ const Colors = {
 
   primaryGreen: "#0FA958",
   secondaryGreen: "#008000",
+  tertiaryGreen: "#E2F1DC",
 
   primaryPink: "#B61E67",
   secondaryPink: "#941B55",
@@ -14,6 +15,7 @@ const Colors = {
   secondaryGray: "#A2A1A1",
 
   primaryRed: "#E81212",
+  secondaryRed: "#EBD3D3",
 
   primaryText: "#0E1117",
   border: "#6D6969",

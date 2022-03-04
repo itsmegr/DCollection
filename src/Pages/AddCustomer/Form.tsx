@@ -40,12 +40,14 @@ export default function Form() {
     guarantorName: "",
     guarantorMobileNumber: "",
   };
-  function handleOnSubmit(values: ICustomerForm) {
-    CustomersStore.addCustomer({
+  async function handleOnSubmit(values: ICustomerForm) {
+    await CustomersStore.addCustomer({
       ...values,
       id: getRandomNumber(),
       address: "",
+      createdAt : new Date()
     });
+    //now then move to next page
   }
   return (
     <Formik

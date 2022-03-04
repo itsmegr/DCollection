@@ -21,7 +21,12 @@ import { useStores } from "../../Providers/StoresProvider";
 import { Observer } from "mobx-react-lite";
 import ActivityLoaderModal from "../../Atoms/ActivityLoaderModal";
 
+
+//try to handle all navigation related stuff on Index page
 export default function Dashboard() {
+  function handleCustomerClick(customerId : number) {
+    console.log("Customer ", customerId, " pressed")
+  }
   return (
     <Observer>
       {() => {
@@ -38,7 +43,7 @@ export default function Dashboard() {
               handleIconPress={() => {}}
               bold
             />
-            <CustomerScrollView />
+            <CustomerScrollView handleCustomerClick={handleCustomerClick} />
             <AddCustomerButton />
           </Screen>
         );

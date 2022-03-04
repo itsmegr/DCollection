@@ -10,7 +10,7 @@ import Form from "./Form";
 
 export default function AddCustomer() {
   function handleBackButton() {
-    console.log("Icon pressed");
+    console.log("Back Icon pressed");
   }
 
   return (

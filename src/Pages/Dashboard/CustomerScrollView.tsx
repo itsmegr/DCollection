@@ -8,10 +8,14 @@ import HeaderWithIconText from "../../Organs/HeaderWithIconText";
 import SearchBar from "../../Organs/SearchBar";
 import { useStores } from "../../Providers/StoresProvider";
 
-export default function CustomerScrollView() {
+
+interface props {
+  handleCustomerClick : (customerId : number) => void
+}
+
+export default function CustomerScrollView(props : props) {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
   const [clicked, setClicked] = useState<boolean>(false);
-
   useEffect(() => {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, []);
@@ -47,6 +51,7 @@ export default function CustomerScrollView() {
                     customerName={item.customerName}
                     lastEntryTime={item.lastEntryTimeStamp}
                     amount={item.totalGiven - item.totalCollected}
+                    onPress={()=>{props.handleCustomerClick(item.customerId)}}
                   />
                 );
               }}

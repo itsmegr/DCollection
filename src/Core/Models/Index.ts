@@ -11,6 +11,7 @@ export interface MCustomer {
   address: string;
   guarantorName: string;
   guarantorMobileNumber: string;
+  createdAt : Date;
 }
 
 export interface MEntry {

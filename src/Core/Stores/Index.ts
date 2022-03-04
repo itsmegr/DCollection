@@ -23,8 +23,10 @@ export interface IDashBoardData {
 
 
 export interface ICustomerData {
-    customer : MCustomer;
-    entries : MEntry[]
+  customer: MCustomer;
+  totalGiven: number;
+  totalCollected: number;
+  entries: MEntry[];
 }
 
 export interface IAppStore {

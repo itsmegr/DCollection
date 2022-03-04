@@ -21,6 +21,7 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
+    createdAt : new Date()
   },
   {
     id: 2,
@@ -29,6 +30,7 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
+    createdAt : new Date()
   },
   {
     id: 3,
@@ -37,46 +39,52 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
+    createdAt : new Date()
   },
   {
     id: 4,
-    name: "Gopal Rathore",
+    name: "Gopal Rathore 1",
     mobileNumber: "9521480753",
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
+    createdAt : new Date()
   },
   {
     id: 5,
-    name: "Gopal Rathore",
+    name: "Gopal Rathore 2",
     mobileNumber: "9521480753",
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
+    createdAt : new Date()
   },
   {
     id: 6,
-    name: "Gopal Rathore",
+    name: "Gopal Rathore 3",
     mobileNumber: "9521480753",
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
+    createdAt : new Date()
   },
   {
     id: 7,
-    name: "Gopal Rathore",
+    name: "Gopal Rathore 4",
     mobileNumber: "9521480753",
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
+    createdAt : new Date()
   },
   {
     id: 8,
-    name: "Gopal Rathore",
+    name: "Gopal Rathore 5",
     mobileNumber: "9521480753",
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
+    createdAt : new Date()
   },
 ];
 
@@ -103,7 +111,7 @@ export let entries: MEntry[] = [
     id: 3,
     customerId: 1,
     type: "penalty",
-    amount: 20,
+    amount: 30,
     desc: "gievn to govind",
     bills: ["bill1", "bill2"],
     timeStamp: new Date(),
@@ -126,7 +134,24 @@ export let entries: MEntry[] = [
     bills: ["bill1", "bill2"],
     timeStamp: new Date(),
   },
-
+  {
+    id: 6,
+    customerId: 1,
+    type: "collected",
+    amount: 100,
+    desc: "given to govind",
+    bills: ["bill1", "bill2"],
+    timeStamp: new Date(),
+  },
+  {
+    id: 7,
+    customerId: 1,
+    type: "collected",
+    amount: 200,
+    desc: "given to govind",
+    bills: ["bill1", "bill2"],
+    timeStamp: new Date(),
+  },
   {
     id: 11,
     customerId: 2,
@@ -220,7 +245,7 @@ export let entries: MEntry[] = [
   },
 
   {
-    id: 21,
+    id: 26,
     customerId: 4,
     type: "given",
     amount: 10000,
@@ -229,7 +254,7 @@ export let entries: MEntry[] = [
     timeStamp: new Date(),
   },
   {
-    id: 22,
+    id: 27,
     customerId: 4,
     type: "collected",
     amount: 100,
@@ -238,7 +263,7 @@ export let entries: MEntry[] = [
     timeStamp: new Date(),
   },
   {
-    id: 23,
+    id: 28,
     customerId: 4,
     type: "collected",
     amount: 200,
@@ -247,7 +272,7 @@ export let entries: MEntry[] = [
     timeStamp: new Date(),
   },
   {
-    id: 24,
+    id: 29,
     customerId: 4,
     type: "penalty",
     amount: 20,
@@ -256,7 +281,7 @@ export let entries: MEntry[] = [
     timeStamp: new Date(),
   },
   {
-    id: 25,
+    id: 30,
     customerId: 4,
     type: "collected",
     amount: 100,
@@ -266,50 +291,4 @@ export let entries: MEntry[] = [
   },
 
   //
-
-  {
-    id: 21,
-    customerId: 5,
-    type: "given",
-    amount: 10000,
-    desc: "gievn to govind",
-    bills: ["bill1", "bill2"],
-    timeStamp: new Date(),
-  },
-  {
-    id: 22,
-    customerId: 5,
-    type: "collected",
-    amount: 100,
-    desc: "gievn to govind",
-    bills: ["bill1", "bill2"],
-    timeStamp: new Date(),
-  },
-  {
-    id: 23,
-    customerId: 5,
-    type: "collected",
-    amount: 200,
-    desc: "gievn to govind",
-    bills: ["bill1", "bill2"],
-    timeStamp: new Date(),
-  },
-  {
-    id: 24,
-    customerId: 5,
-    type: "penalty",
-    amount: 20,
-    desc: "gievn to govind",
-    bills: ["bill1", "bill2"],
-    timeStamp: new Date(),
-  },
-  {
-    id: 25,
-    customerId: 5,
-    type: "collected",
-    amount: 100,
-    desc: "given to govind",
-    bills: ["bill1", "bill2"],
-    timeStamp: new Date(),
-  },
 ];

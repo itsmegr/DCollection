@@ -1,18 +1,22 @@
 import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
+import NameLogo from "../Atoms/NameLogo";
 import Colors from "../Constants/Colors";
 import getLastEntryString from "../Helpers/GetLastEntryString";
 import MoneyTextWithSomeDetailText from "./MoneyTextWithSomeDetailText";
+import NameWithText from "./NameWithText";
 
 interface ICustomerItem {
   customerName: string;
   lastEntryTime: Date;
   amount: number;
+  onPress : () => void
 }
 export default function CustomerItemForSummary({
   customerName,
   lastEntryTime,
   amount,
+  onPress
 }: ICustomerItem) {
   //logic for showing date
 
@@ -22,11 +26,9 @@ export default function CustomerItemForSummary({
         flexDirection: "row",
         width: "100%",
         justifyContent: "center",
-        backgroundColor: Colors.white
+        backgroundColor: Colors.white,
       }}
-      onPress={() => {
-        console.log("item pressed");
-      }}
+      onPress={onPress}
       activeOpacity={0.8}
     >
       <View
@@ -39,10 +41,14 @@ export default function CustomerItemForSummary({
         }}
       >
         <View style={{ flexDirection: "row" }}>
-          <NameLogo />
-          <NameWithLastEntry
+          <NameLogo
+            text={customerName[0].toUpperCase()}
+            backgroundColor={Colors.primaryBlue}
+            textColor={Colors.white}
+          />
+          <NameWithText
             name={customerName}
-            lastEntry={getLastEntryString(lastEntryTime)}
+            text={getLastEntryString(lastEntryTime)}
           />
         </View>
         <MoneyTextWithSomeDetailText
@@ -57,54 +63,3 @@ export default function CustomerItemForSummary({
   );
 }
 
-function NameWithLastEntry({
-  name,
-  lastEntry,
-}: {
-  name: string;
-  lastEntry: string;
-}) {
-  return (
-    <View
-      style={{
-        marginLeft: 8,
-        justifyContent: "center",
-      }}
-    >
-      <Text style={{ fontSize: 16 }}>{name}</Text>
-      <Text
-        style={{
-          color: Colors.secondaryGray,
-          fontSize: 10,
-        }}
-      >
-        {lastEntry}
-      </Text>
-    </View>
-  );
-}
-
-function NameLogo() {
-  return (
-    <View
-      style={{
-        width: 45,
-        height: 45,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 25,
-        backgroundColor: Colors.primaryBlue,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 30,
-          fontWeight: "bold",
-          color: Colors.white,
-        }}
-      >
-        T
-      </Text>
-    </View>
-  );
-}
