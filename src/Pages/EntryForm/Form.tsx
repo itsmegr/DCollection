@@ -74,6 +74,7 @@ export default function Form(props: props) {
 
     await CustomersStore.addEntry(newEntry);
     //after saving the data in store
+    console.log(newEntry);
     props.dataSavedSuccessfully();
   }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Screen from "./src/Atoms/Screen";
 import { MockCustomerRepo } from "./src/Core/Repositories/RCustomers";
 import { MockUserRepo } from "./src/Core/Repositories/RUser";
@@ -11,9 +11,19 @@ import {Text} from "react-native"
 import AddCustomer from "./src/Pages/AddCustomer/Index";
 import CustomerEntries from "./src/Pages/CustomerEntries/Index"
 import EntryForm from "./src/Pages/EntryForm/Index";
+import EntryDetail from "./src/Pages/EntryDetail/Index";
+import * as MediaLibrary from "expo-media-library";
 
 
 export default function App() {
+  async function askPermissions(){
+    await MediaLibrary.requestPermissionsAsync();
+  }
+
+  useEffect(()=>{
+    askPermissions()
+  }, [])
+
   return (
     <StoresContext.Provider
       value={{
@@ -21,7 +31,7 @@ export default function App() {
         UserStore: new SUser(new MockUserRepo()),
       }}
     >
-      <CustomerEntries/>
+      <EntryDetail/>
     </StoresContext.Provider>
   );
 }

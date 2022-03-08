@@ -6,10 +6,12 @@ export default function NameWithText({
   name,
   text,
   color,
+  textSize
 }: {
   name: string;
   text: string;
   color?: string;
+  textSize ? :number
 }) {
   return (
     <View
@@ -24,7 +26,7 @@ export default function NameWithText({
       <Text
         style={{
           color: color ? color : Colors.secondaryGray,
-          fontSize: 10,
+          fontSize: textSize ? textSize: 10,
         }}
       >
         {text}

@@ -18,13 +18,20 @@ const GetUrisFromImageName = async (names: string[]): Promise<imageType[]> => {
 
   let tempUris: imageType[] = [];
 
-  data.assets.forEach((value, index) => {
-    //here need to filter the names from the names stored in db and get there uri and use that to show images
-    // console.log(value.filename, value.uri);
-    if (names.includes(value.filename)) {
-      tempUris.push({ fileName: value.filename, uri: value.uri });
+  names.forEach((value, index) => {
+    for (let asset of data.assets) {
+      if (asset.filename === value)
+        tempUris.push({ fileName: asset.filename, uri: asset.uri });
     }
   });
+
+  // data.assets.forEach((value, index) => {
+  //   //here need to filter the names from the names stored in db and get there uri and use that to show images
+  //   // console.log(value.filename, value.uri);
+  //   if (names.includes(value.filename)) {
+  //     tempUris.push({ fileName: value.filename, uri: value.uri });
+  //   }
+  // });
 
   //fetching next page also if there
   while (data.hasNextPage) {
@@ -32,9 +39,10 @@ const GetUrisFromImageName = async (names: string[]): Promise<imageType[]> => {
       album: album,
       after: data.endCursor,
     });
-    data.assets.forEach((value, index) => {
-      if (names.includes(value.filename)) {
-        tempUris.push({ fileName: value.filename, uri: value.uri });
+    names.forEach((value, index) => {
+      for (let asset of data.assets) {
+        if (asset.filename === value)
+          tempUris.push({ fileName: asset.filename, uri: asset.uri });
       }
     });
   }

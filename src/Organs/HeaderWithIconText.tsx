@@ -46,6 +46,7 @@ const headerStyles = StyleSheet.create({
     minHeight: 50,
     height: "8%",
     alignItems: "center",
+    elevation :5
   },
   iconCont: {
     paddingRight: 10,

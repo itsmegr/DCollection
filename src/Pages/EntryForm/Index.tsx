@@ -23,7 +23,7 @@ export default function EntryForm() {
     type: "collected",
     amount: 200,
     desc: "given to govind",
-    bills: ["25a35c84-089f-41ad-8201-e70c5015f1c7.jpg"],
+    bills: ["5ed38a0c-80a0-4fe2-a877-02e7a59d4640.jpg"],
     timeStamp: new Date(),
   };
 
