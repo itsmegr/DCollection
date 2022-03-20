@@ -28,7 +28,7 @@ export default function CustomerScrollView(props : props) {
           <ScrollView
             style={{ flex: 1 }}
             showsVerticalScrollIndicator={false}
-            stickyHeaderIndices={[2]}
+            stickyHeaderIndices={[1]}
             nestedScrollEnabled={true}
           >
             <CollectionSummaryCont

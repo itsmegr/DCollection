@@ -32,7 +32,11 @@ const formValidationSchema = yup.object().shape({
     .required("Mobile Number is required"),
 });
 
-export default function Form() {
+interface props {
+  onCustomerAdded : ()=> void
+}
+
+export default function Form(props : props) {
   const { CustomersStore } = useStores();
   let initialValues: ICustomerForm = {
     name: "",
@@ -48,6 +52,7 @@ export default function Form() {
       createdAt : new Date()
     });
     //now then move to next page
+    props.onCustomerAdded();
   }
   return (
     <Formik

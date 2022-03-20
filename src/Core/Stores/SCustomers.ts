@@ -28,6 +28,7 @@ export default class SCustomers {
       fetchCustomers: action,
       fetchEntries: action,
       dashBoardData: computed,
+      updateCustomer: action,
     });
     this.isLoading = true;
     this.fetchData();
@@ -37,7 +38,7 @@ export default class SCustomers {
     //fetch customers and entries
     await this.fetchCustomers();
     await this.fetchEntries();
-    console.log("data fetched");
+
     runInAction(() => {
       this.isLoading = false;
     });
@@ -53,6 +54,7 @@ export default class SCustomers {
 
   async addCustomer(value: MCustomer) {
     this.customersRepo.addCustomer(value);
+    await this.fetchCustomers();
   }
 
   //this returns the data for customer summary
@@ -73,7 +75,7 @@ export default class SCustomers {
         break;
       }
     }
-    
+
     for (let entry of this.entries) {
       if (entry.customerId === id) {
         customerEntries.push(entry);
@@ -90,13 +92,28 @@ export default class SCustomers {
       totalCollected: totalCollected,
       entries: customerEntries,
     };
-    
-    return res
+
+    return res;
   }
 
-  async updateCustomer() {}
+  getCustomerProfile(id: number): MCustomer {
+    let cus: MCustomer = {} as MCustomer;
+    for (let customer of this.customers) {
+      if (customer.id === id) return customer;
+    }
 
-  async deleteCustomer() {}
+    return cus;
+  }
+
+  async updateCustomer(id: number, value: MCustomer) {
+    await this.customersRepo.updateCustomer(id, value);
+    await this.fetchCustomers();
+  }
+
+  async deleteCustomer(id: number) {
+    await this.customersRepo.deleteCustomer(id);
+    await this.fetchCustomers;
+  }
 
   async fetchEntries() {
     let res = await this.customersRepo.getEntries();
@@ -105,12 +122,15 @@ export default class SCustomers {
     });
   }
 
-  async addEntry(value : MEntry) {
-    await this.customersRepo.addEntry(value)
+  async addEntry(value: MEntry) {
+    await this.customersRepo.addEntry(value);
     await this.fetchEntries();
   }
 
-  async updateEntry() {}
+  async updateEntry(id: number, value: MEntry) {
+    await this.customersRepo.updateEntry(id, value);
+    await this.fetchEntries();
+  }
 
   async deleteEntry() {}
 
@@ -158,7 +178,7 @@ export default class SCustomers {
     }
 
     customers = customers.sort(
-      (a, b) => a.lastEntryTimeStamp.getTime() - b.lastEntryTimeStamp.getTime()
+      (a, b) => (b.lastEntryTimeStamp.getTime() - a.lastEntryTimeStamp.getTime())
     );
 
     return {
@@ -166,9 +186,5 @@ export default class SCustomers {
       totalCollected: totalCollected,
       customers: customers,
     };
-  }
-
-  get customerData(): ICustomerData {
-    return {} as ICustomerData;
   }
 }

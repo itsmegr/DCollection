@@ -3,7 +3,7 @@ import { MBackupInfo, MCustomer, MEntry, MUser } from "../Models/Index";
 export let user: MUser = {
   name: "Govind Rathore",
   mobileNumber: "8769785549",
-  businessName: "My business",
+  businessName: "My business and me",
 };
 
 export let backupInfo: MBackupInfo = {
@@ -18,10 +18,10 @@ export let customers: MCustomer[] = [
     id: 1,
     name: "Gopal Rathore",
     mobileNumber: "9521480753",
-    guarantorName: "Tanish Gupta",
+    guarantorName: "Govind Rathore",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
-    createdAt : new Date()
+    createdAt: new Date(),
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
-    createdAt : new Date()
+    createdAt: new Date(),
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
-    createdAt : new Date()
+    createdAt: new Date(),
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
-    createdAt : new Date()
+    createdAt: new Date(),
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
-    createdAt : new Date()
+    createdAt: new Date(),
   },
   {
     id: 6,
@@ -66,7 +66,7 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
-    createdAt : new Date()
+    createdAt: new Date(),
   },
   {
     id: 7,
@@ -75,7 +75,7 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
-    createdAt : new Date()
+    createdAt: new Date(),
   },
   {
     id: 8,
@@ -84,7 +84,34 @@ export let customers: MCustomer[] = [
     guarantorName: "Tanish Gupta",
     guarantorMobileNumber: "9521480753",
     address: "Kanwari",
-    createdAt : new Date()
+    createdAt: new Date(),
+  },
+  {
+    id: 9,
+    name: "Gopal Rathore 3",
+    mobileNumber: "9521480753",
+    guarantorName: "Tanish Gupta",
+    guarantorMobileNumber: "9521480753",
+    address: "Kanwari",
+    createdAt: new Date(),
+  },
+  {
+    id: 10,
+    name: "Gopal Rathore 4",
+    mobileNumber: "9521480753",
+    guarantorName: "Tanish Gupta",
+    guarantorMobileNumber: "9521480753",
+    address: "Kanwari",
+    createdAt: new Date(),
+  },
+  {
+    id: 11,
+    name: "Gopal Rathore 5",
+    mobileNumber: "9521480753",
+    guarantorName: "Tanish Gupta",
+    guarantorMobileNumber: "9521480753",
+    address: "Kanwari",
+    createdAt: new Date(),
   },
 ];
 

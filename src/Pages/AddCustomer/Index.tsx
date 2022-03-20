@@ -1,3 +1,4 @@
+import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
 import { StatusBar } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -5,12 +6,20 @@ import Screen from "../../Atoms/Screen";
 import SvgCustomerInfo from "../../Atoms/SVG/SvgCustomerInfo";
 import Colors from "../../Constants/Colors";
 import layout from "../../Constants/Layout";
+import { RootStackParamList } from "../../Navigation/types";
 import HeaderWithIconText from "../../Organs/HeaderWithIconText";
 import Form from "./Form";
 
-export default function AddCustomer() {
+
+type props = StackScreenProps<RootStackParamList, "AddCustomer">
+export default function AddCustomer({navigation} : props) {
   function handleBackButton() {
-    console.log("Back Icon pressed");
+    navigation.goBack();
+  }
+
+  function onCustomerAdded() {
+    //her move to next page
+    navigation.navigate("Dashboard");
   }
 
   return (
@@ -30,7 +39,7 @@ export default function AddCustomer() {
           height="20%"
           width="50%"
         />
-        <Form />
+        <Form onCustomerAdded={onCustomerAdded} />
       </Screen>
     </KeyboardAwareScrollView>
   );

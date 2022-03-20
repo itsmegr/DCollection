@@ -48,7 +48,6 @@ export default function Form(props: props) {
 
   const [images, setImages] = useState<Array<imageType>>([]);
 
-
   async function getUris() {
     const allImages = await GetUrisFromImageName(props.prevEntry.bills);
 
@@ -56,7 +55,7 @@ export default function Form(props: props) {
   }
   useEffect(() => {
     //in starting getting the uris for these fileNames
-    if(props.edit)getUris();
+    if (props.edit) getUris();
   }, []);
 
   const { CustomersStore } = useStores();
@@ -72,7 +71,9 @@ export default function Form(props: props) {
       timeStamp: new Date(),
     };
 
-    await CustomersStore.addEntry(newEntry);
+    if (props.edit) {
+      await CustomersStore.updateEntry(props.prevEntry.id, newEntry);
+    } else await CustomersStore.addEntry(newEntry);
     //after saving the data in store
     console.log(newEntry);
     props.dataSavedSuccessfully();
@@ -89,12 +90,15 @@ export default function Form(props: props) {
     if (!result.cancelled) {
       let [fileName1] = await SaveToPhoneStorage([result.uri]);
       let [newImage] = await GetUrisFromImageName([fileName1]);
-      setImages([...images, newImage])
+      setImages([...images, newImage]);
     }
   };
 
   function handleDeleteImage(deleImage: imageType) {
-    let newImages = images.filter((value) => (value.fileName !== deleImage.fileName || value.uri !==deleImage.uri));
+    let newImages = images.filter(
+      (value) =>
+        value.fileName !== deleImage.fileName || value.uri !== deleImage.uri
+    );
     setImages(newImages);
   }
 

@@ -5,17 +5,18 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Button from "../../Atoms/Button";
 import Colors from "../../Constants/Colors";
 
-export default function AddCustomerButton() {
+type props  = {
+  handleAddCustomerClicked : () => void;
+}
+
+export default function AddCustomerButton(props : props) {
   return (
     <Button
       text=""
-      onPress={() => {
-        //navigate to the add customer page
-        console.log("Add customer button pressed");
-      }}
+      onPress={props.handleAddCustomerClicked}
       style={styles.button}
       iconBefore={
-        <FontAwesome5 name="user-plus" size={24} color={Colors.white} />
+        <FontAwesome5 name="user-plus" size={20} color={Colors.white} />
       }
       background={Colors.primaryPink}
       underlayColor={Colors.secondaryPink}
@@ -26,10 +27,10 @@ export default function AddCustomerButton() {
 const styles = StyleSheet.create({
   button: {
     position: "absolute",
-    bottom: 60,
+    bottom: 10,
     right: 10,
     zIndex: 1,
-    width: 70,
-    borderRadius: 70,
+    width: 60,
+    borderRadius:650,
   },
 });

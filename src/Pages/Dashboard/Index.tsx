@@ -20,17 +20,30 @@ import CustomerScrollView from "./CustomerScrollView";
 import { useStores } from "../../Providers/StoresProvider";
 import { Observer } from "mobx-react-lite";
 import ActivityLoaderModal from "../../Atoms/ActivityLoaderModal";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { RootStackParamList } from "../../Navigation/types";
+import { StackScreenProps } from "@react-navigation/stack";
 
+type props = StackScreenProps<RootStackParamList, "Dashboard">;
 
 //try to handle all navigation related stuff on Index page
-export default function Dashboard() {
-  function handleCustomerClick(customerId : number) {
-    console.log("Customer ", customerId, " pressed")
+export default function Dashboard({ navigation }: props) {
+  console.log("rerendered dashboard");
+  function handleCustomerClick(customerId: number) {
+    navigation.navigate("CustomerEntries", { customerId: customerId });
+  }
+
+  function handleMenuClicked() {
+    navigation.navigate("Settings");
+  }
+
+  function handleAddCustomerClicked() {
+    navigation.navigate("AddCustomer");
   }
   return (
     <Observer>
       {() => {
-        const { CustomersStore } = useStores();
+        const { CustomersStore, UserStore } = useStores();
         return (
           <Screen>
             <ActivityLoaderModal
@@ -39,12 +52,16 @@ export default function Dashboard() {
             <StatusBar backgroundColor={Colors.primaryBlue}></StatusBar>
             <HeaderWithIconText
               icon={"notebook"}
-              text={"My Business"}
+              text={UserStore.user.businessName}
               handleIconPress={() => {}}
               bold
+              menu
+              handleMenuClick={handleMenuClicked}
             />
             <CustomerScrollView handleCustomerClick={handleCustomerClick} />
-            <AddCustomerButton />
+            <AddCustomerButton
+              handleAddCustomerClicked={handleAddCustomerClicked}
+            />
           </Screen>
         );
       }}
