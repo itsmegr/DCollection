@@ -20,4 +20,7 @@ export type RootStackParamList = {
     totalCollected: number;
     totalGiven: number;
   };
+  CheckAnimation: {
+    customerId: number;
+  };
 };

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Image, StyleSheet, Text, TouchableOpacity, View
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ImageView from "react-native-image-viewing";
 import NameLogo from "../../Atoms/NameLogo";
 import Colors from "../../Constants/Colors";
@@ -10,7 +8,6 @@ import GetUrisFromImageName from "../../Core/Utils/GetUrisFromImageName";
 import GetDateDisplayFormat from "../../Helpers/GetDateDisplayFormat";
 import MoneyText from "../../Organs/MoneyText";
 import NameWithText from "../../Organs/NameWithText";
-
 
 interface props {
   entry: MEntry;
@@ -33,7 +30,10 @@ export default function EntryInfo(props: props) {
         {props.entry.bills.length > 0 && (
           <BillsComponent bills={props.entry.bills}></BillsComponent>
         )}
-        <RemainingAmount totalCollected={props.totalCollected} totalGiven={props.totalGiven}></RemainingAmount>
+        {/* <RemainingAmount
+          totalCollected={props.totalCollected}
+          totalGiven={props.totalGiven}
+        ></RemainingAmount> */}
       </View>
     </View>
   );
@@ -125,7 +125,7 @@ function BillsComponent({ bills }: { bills: string[] }) {
     getUris();
   }, []);
 
-  const [zoomImageUri, setZoomImageUri] = useState("")
+  const [zoomImageUri, setZoomImageUri] = useState("");
   const [visible, setIsVisible] = useState(false);
 
   return (
@@ -146,7 +146,7 @@ function BillsComponent({ bills }: { bills: string[] }) {
               key={index}
               onPress={() => {
                 setZoomImageUri(image.uri);
-                setIsVisible(true)
+                setIsVisible(true);
               }}
               activeOpacity={0.6}
             >
@@ -165,7 +165,7 @@ function BillsComponent({ bills }: { bills: string[] }) {
         })}
       </View>
       <ImageView
-        images={[{uri: zoomImageUri}]}
+        images={[{ uri: zoomImageUri }]}
         imageIndex={0}
         visible={visible}
         onRequestClose={() => setIsVisible(false)}
@@ -183,10 +183,22 @@ function RemainingAmount({
 }) {
   return (
     <View style={styles.remainingAmount}>
-      <Text>Remaining Amount</Text>
+      <Text>
+        {totalGiven - totalCollected > 0
+          ? "Remaining Amount"
+          : "Extra collected"}
+      </Text>
       <MoneyText
-        amount={totalGiven-totalCollected}
-        color={Colors.primaryRed}
+        amount={
+          totalGiven - totalCollected > 0
+            ? totalGiven - totalCollected
+            : -1 * (totalGiven - totalCollected)
+        }
+        color={
+          totalGiven - totalCollected > 0
+            ? Colors.primaryRed
+            : Colors.primaryGreen
+        }
         fontSize={20}
       ></MoneyText>
     </View>

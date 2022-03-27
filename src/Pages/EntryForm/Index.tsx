@@ -1,5 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from "react-native";
 import Screen from "../../Atoms/Screen";
 import Colors from "../../Constants/Colors";
@@ -28,8 +28,10 @@ export default function EntryForm({ navigation, route }: props) {
     });
   }
 
-  function dataSavedSuccessfully() {
-    navigation.navigate("CustomerEntries", {
+  async function dataSavedSuccessfully() {
+    //here show some nice animation for 1 seconds
+    // await new Promise((resolve) => setTimeout(resolve, 1500));
+    navigation.navigate("CheckAnimation", {
       customerId: route.params.customerId,
     });
   }
@@ -38,24 +40,26 @@ export default function EntryForm({ navigation, route }: props) {
 
   if (route.params.type === "collected") headerText = "You Collected";
   else if (route.params.type === "given") headerText = "You Gave";
-  else headerText = "Add Penalty"
+  else headerText = "Add Penalty";
 
   return (
-    <Screen>
-      <StatusBar backgroundColor={Colors.primaryBlue}></StatusBar>
-      <HeaderWithIconText
-        icon={"arrow-left"}
-        text={headerText}
-        handleIconPress={handleBackIconPress}
-      ></HeaderWithIconText>
-      <Form
-        customerId={route.params.customerId}
-        handleBackIconPress={handleBackIconPress}
-        dataSavedSuccessfully={dataSavedSuccessfully}
-        edit={route.params.edit}
-        prevEntry={route.params.prevEntry}
-        type={route.params.type}
-      />
-    </Screen>
+    <>
+      <Screen>
+        <StatusBar backgroundColor={Colors.primaryBlue}></StatusBar>
+        <HeaderWithIconText
+          icon={"arrow-left"}
+          text={headerText}
+          handleIconPress={handleBackIconPress}
+        ></HeaderWithIconText>
+        <Form
+          customerId={route.params.customerId}
+          handleBackIconPress={handleBackIconPress}
+          dataSavedSuccessfully={dataSavedSuccessfully}
+          edit={route.params.edit}
+          prevEntry={route.params.prevEntry}
+          type={route.params.type}
+        />
+      </Screen>
+    </>
   );
 }

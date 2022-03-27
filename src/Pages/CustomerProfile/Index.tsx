@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, Text, StatusBar, StyleSheet } from "react-native";
+import { View, Text, StatusBar, StyleSheet, Alert } from "react-native";
 
 import {
   AntDesign,
@@ -185,11 +185,34 @@ export default function CustomerProfile({ navigation, route }: props) {
               oldValue={oldValue.value}
               getNewValue={setNewValue}
               refRBSheet={refRBSheet}
+              mobileNumber={
+                oldValue.type == "guarantorMobileNumber" ||
+                oldValue.type == "mobileNumber"
+                  ? true
+                  : false
+              }
             ></EditModal>
             <View style={styles.buttonCont}>
               <Button
                 style={styles.button}
-                onPress={handleDeleteButton}
+                onPress={() => {
+                  Alert.alert(
+                    "Delete",
+                    "Are you sure you want to delete this customer?",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => {},
+                      },
+                      {
+                        text: "Delete",
+                        onPress: () => {
+                          handleDeleteButton();
+                        },
+                      },
+                    ]
+                  );
+                }}
                 text={"Delete Customer"}
                 // background={Colors.primaryRed}
                 underlayColor={Colors.primaryGray}

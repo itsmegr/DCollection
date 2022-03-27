@@ -1,6 +1,13 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import { LogBox, ScrollView, StyleSheet, View, YellowBox } from "react-native";
+import {
+  Alert,
+  LogBox,
+  ScrollView,
+  StyleSheet,
+  View,
+  YellowBox,
+} from "react-native";
 import Button from "../../Atoms/Button";
 import Screen from "../../Atoms/Screen";
 import Colors from "../../Constants/Colors";
@@ -82,7 +89,24 @@ export default function Index({ navigation, route }: props) {
             <Button
               height={45}
               style={styles.button1}
-              onPress={handleDeleteEntry}
+              onPress={() => {
+                Alert.alert(
+                  "Delete",
+                  "Are you sure you want to delete this entry?",
+                  [
+                    {
+                      text: "Cancel",
+                      onPress: () => {},
+                    },
+                    {
+                      text: "Delete",
+                      onPress: () => {
+                        handleDeleteEntry();
+                      },
+                    },
+                  ]
+                );
+              }}
               text={"Delete Entry"}
               appearance="minimal"
               textColor={Colors.primaryRed}

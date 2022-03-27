@@ -166,6 +166,7 @@ export default function Settings({ navigation }: props) {
               oldValue={oldValue.value}
               getNewValue={setNewValue}
               refRBSheet={refRBSheet}
+              mobileNumber={oldValue.type=="mobileNumber" ? true : false}
             ></EditModal>
           </Screen>
         );

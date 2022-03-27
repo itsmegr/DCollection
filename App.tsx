@@ -25,27 +25,32 @@ import ActivityLoaderModal from "./src/Atoms/ActivityLoaderModal";
 import { migrateDB, openDatabase } from "./src/Core/Utils/SqlliteUtils";
 import { CustomerRepo } from "./src/Core/Repositories/RCustomerSqllite";
 import { UserRepo } from "./src/Core/Repositories/RUserSqllite";
+import CheckAnimation from "./src/Pages/CheckAnimation/Index";
+import { getIsFirstTime } from "./src/Core/Utils/AsyncStorage";
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   const [db, setDB] = useState<null | SQLite.WebSQLDatabase>(null);
+  const [isFirstTime, setIsFirstTime] = useState<boolean | undefined>(
+    undefined
+  );
 
   async function askPermissions() {
     await MediaLibrary.requestPermissionsAsync();
   }
 
-  async function dbInit() {
+  async function loadingDependencies() {
+    let data1 = await getIsFirstTime();
+    setIsFirstTime(data1);
     let db = await openDatabase();
     await migrateDB(db);
     setDB(db);
   }
 
-  const isFirstTime = false;
-
   //this is for starting Db
   useEffect(() => {
-    dbInit();
+    loadingDependencies();
     askPermissions();
   }, []);
 
@@ -83,6 +88,7 @@ export default function App() {
           />
           <RootStack.Screen name="EntryForm" component={EntryForm} />
           <RootStack.Screen name="EntryDetail" component={EntryDetail} />
+          <RootStack.Screen name="CheckAnimation" component={CheckAnimation} />
         </RootStack.Navigator>
       </StoresContext.Provider>
     </NavigationContainer>

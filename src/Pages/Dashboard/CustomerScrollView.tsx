@@ -2,6 +2,7 @@ import { Observer } from "mobx-react-lite";
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, FlatList, LogBox } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { ICustomerSummary } from "../../Core/Stores/Index";
 import CollectionSummaryCont from "../../Organs/CollectionSummaryCont";
 import CustomerItemForSummary from "../../Organs/CustomerItemForSummary";
 import HeaderWithIconText from "../../Organs/HeaderWithIconText";
@@ -18,6 +19,19 @@ export default function CustomerScrollView(props: props) {
   useEffect(() => {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, []);
+
+  function getDataAccordingToSearch(
+    customers: ICustomerSummary[]
+  ): ICustomerSummary[] {
+    if (searchPhrase === "") return customers;
+
+    let newCustomers = customers.filter((item) => {
+      if (item.customerName.toLowerCase().includes(searchPhrase.toLowerCase()))
+        return true;
+      else false;
+    });
+    return newCustomers;
+  }
 
   return (
     <Observer>
@@ -41,7 +55,9 @@ export default function CustomerScrollView(props: props) {
               setClicked={setClicked}
             />
             <FlatList
-              data={CustomersStore.dashBoardData.customers}
+              data={getDataAccordingToSearch(
+                CustomersStore.dashBoardData.customers
+              )}
               keyExtractor={(item, index) => item.customerId.toString()}
               ItemSeparatorComponent={() => <View style={{ height: 1 }}></View>}
               renderItem={({ item }) => {

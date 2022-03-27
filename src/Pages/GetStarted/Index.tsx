@@ -7,6 +7,7 @@ import Button from "../../Atoms/Button";
 import Screen from "../../Atoms/Screen";
 import SvgLogo from "../../Atoms/SVG/SvgLogo";
 import Colors from "../../Constants/Colors";
+import { setIsFirstTime } from "../../Core/Utils/AsyncStorage";
 import { RootStackParamList } from "../../Navigation/types";
 import TagLine from "./Tagline";
 
@@ -19,7 +20,8 @@ export default function GetStarted({ navigation }: props) {
         <SvgLogo width="80%" height="10%" />
         <TagLine />
         <Button
-          onPress={() => {
+          onPress={async () => {
+            await setIsFirstTime(false);
             navigation.navigate("Dashboard");
           }}
           text="GET STARTED"
