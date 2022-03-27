@@ -8,12 +8,11 @@ import HeaderWithIconText from "../../Organs/HeaderWithIconText";
 import SearchBar from "../../Organs/SearchBar";
 import { useStores } from "../../Providers/StoresProvider";
 
-
 interface props {
-  handleCustomerClick : (customerId : number) => void
+  handleCustomerClick: (customerId: number) => void;
 }
 
-export default function CustomerScrollView(props : props) {
+export default function CustomerScrollView(props: props) {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
   const [clicked, setClicked] = useState<boolean>(false);
   useEffect(() => {
@@ -51,7 +50,9 @@ export default function CustomerScrollView(props : props) {
                     customerName={item.customerName}
                     lastEntryTime={item.lastEntryTimeStamp}
                     amount={item.totalGiven - item.totalCollected}
-                    onPress={()=>{props.handleCustomerClick(item.customerId)}}
+                    onPress={() => {
+                      props.handleCustomerClick(item.customerId);
+                    }}
                   />
                 );
               }}

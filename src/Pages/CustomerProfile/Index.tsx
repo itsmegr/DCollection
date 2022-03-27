@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, Text, StatusBar } from "react-native";
+import { View, Text, StatusBar, StyleSheet } from "react-native";
 
 import {
   AntDesign,
@@ -19,17 +19,20 @@ import Screen from "../../Atoms/Screen";
 import DataWithIconAndEdit from "../../Organs/DataWithIconAndEdit";
 import EditModal from "../../Organs/EditModal";
 import { computed } from "mobx";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../../Navigation/types";
+import ButtonAtBottom from "../../Atoms/ButtonAtBottom";
+import Button from "../../Atoms/Button";
 
-export default function CustomerProfile() {
-  let customerId = 1;
+type props = StackScreenProps<RootStackParamList, "CustomerProfile">;
+export default function CustomerProfile({ navigation, route }: props) {
+  let customerId = route.params.customerId;
 
   return (
     <Observer>
       {() => {
-
-        function handleBackButton(){
-          console.log("Back button pressed");
-          
+        function handleBackButton() {
+          navigation.goBack();
         }
 
         const refRBSheet = useRef<any>();
@@ -81,6 +84,11 @@ export default function CustomerProfile() {
             default:
               return "";
           }
+        }
+
+        async function handleDeleteButton() {
+          await CustomersStore.deleteCustomer(route.params.customerId);
+          navigation.navigate("Dashboard");
         }
 
         return (
@@ -178,9 +186,41 @@ export default function CustomerProfile() {
               getNewValue={setNewValue}
               refRBSheet={refRBSheet}
             ></EditModal>
+            <View style={styles.buttonCont}>
+              <Button
+                style={styles.button}
+                onPress={handleDeleteButton}
+                text={"Delete Customer"}
+                // background={Colors.primaryRed}
+                underlayColor={Colors.primaryGray}
+                appearance="minimal"
+                textColor={Colors.primaryRed}
+                iconBefore={
+                  <MaterialIcons
+                    name="delete"
+                    size={24}
+                    color={Colors.primaryRed}
+                  />
+                }
+              ></Button>
+            </View>
           </Screen>
         );
       }}
     </Observer>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonCont: {
+    flex: 1,
+    justifyContent: "flex-end",
+    width: "90%",
+    minHeight: 60,
+    alignSelf: "center",
+  },
+  button: {
+    width: "100%",
+    marginBottom: 10,
+  },
+});

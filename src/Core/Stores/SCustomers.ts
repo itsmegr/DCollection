@@ -29,6 +29,8 @@ export default class SCustomers {
       fetchEntries: action,
       dashBoardData: computed,
       updateCustomer: action,
+      deleteCustomer: action,
+      deleteEntry: action,
     });
     this.isLoading = true;
     this.fetchData();
@@ -86,6 +88,10 @@ export default class SCustomers {
         }
       }
     }
+
+    customerEntries = customerEntries.sort(
+      (a, b) => b.timeStamp.getTime() - a.timeStamp.getTime()
+    );
     let res = {
       customer: customer,
       totalGiven: totalGiven,
@@ -112,7 +118,8 @@ export default class SCustomers {
 
   async deleteCustomer(id: number) {
     await this.customersRepo.deleteCustomer(id);
-    await this.fetchCustomers;
+    await this.fetchEntries();
+    await this.fetchCustomers();
   }
 
   async fetchEntries() {
@@ -132,7 +139,10 @@ export default class SCustomers {
     await this.fetchEntries();
   }
 
-  async deleteEntry() {}
+  async deleteEntry(id: number) {
+    await this.customersRepo.deleteEntry(id);
+    await this.fetchEntries();
+  }
 
   get dashBoardData(): IDashBoardData {
     /*
@@ -155,6 +165,7 @@ export default class SCustomers {
     }
 
     for (let entry of this.entries) {
+      // if (!dict[entry.customerId]) continue;
       dict[entry.customerId].lastEntryTimeStamp = getLatestTimestamp(
         dict[entry.customerId].lastEntryTimeStamp,
         entry.timeStamp
@@ -178,7 +189,7 @@ export default class SCustomers {
     }
 
     customers = customers.sort(
-      (a, b) => (b.lastEntryTimeStamp.getTime() - a.lastEntryTimeStamp.getTime())
+      (a, b) => b.lastEntryTimeStamp.getTime() - a.lastEntryTimeStamp.getTime()
     );
 
     return {

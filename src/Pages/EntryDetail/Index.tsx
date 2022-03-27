@@ -1,34 +1,57 @@
+import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { LogBox, ScrollView, StyleSheet, View, YellowBox } from "react-native";
 import Button from "../../Atoms/Button";
 import Screen from "../../Atoms/Screen";
 import Colors from "../../Constants/Colors";
 import { MEntry } from "../../Core/Models/Index";
+import { RootStackParamList } from "../../Navigation/types";
 import HeaderWithIconText from "../../Organs/HeaderWithIconText";
+import { useStores } from "../../Providers/StoresProvider";
 import EntryInfo from "./EntryInfo";
 
 /*
     TODO :- Handle edit and delete button (run store functions)
 */
+type props = StackScreenProps<RootStackParamList, "EntryDetail">;
 
-export default function Index() {
-  let en: MEntry = {
-    id: 7,
-    customerId: 1,
-    type: "collected",
-    amount: 200,
-    desc: `given to govind`,
-    bills: [
-      "5ed38a0c-80a0-4fe2-a877-02e7a59d4640.jpg",
-      "a657450b-d498-45dc-ab28-76ba5ff569fa.jpg",
-    ],
-    timeStamp: new Date(),
-  };
-  let customerName = "Tanish Gupta";
-  let totalCollected  = 4530
-  let totalGiven = 10000
+export default function Index({ navigation, route }: props) {
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
 
-  function handleBackButton() {}
+  const { CustomersStore } = useStores();
+
+  let en: MEntry = route.params.entry;
+
+  let customerName = route.params.customer.name;
+  let totalCollected = route.params.totalCollected;
+  let totalGiven = route.params.totalGiven;
+
+  function handleBackButton() {
+    navigation.goBack();
+  }
+
+  function handleEditEntry() {
+    navigation.navigate("EntryForm", {
+      customerId: route.params.customer.id,
+      type: route.params.entry.type,
+      edit: true,
+      prevEntry: route.params.entry,
+    });
+  }
+
+  function onSuccess() {
+    navigation.navigate("CustomerEntries", {
+      customerId: route.params.customer.id,
+    });
+  }
+
+  async function handleDeleteEntry() {
+    await CustomersStore.deleteEntry(route.params.entry.id);
+    onSuccess();
+  }
+
   return (
     <Screen>
       <HeaderWithIconText
@@ -59,7 +82,7 @@ export default function Index() {
             <Button
               height={45}
               style={styles.button1}
-              onPress={() => {}}
+              onPress={handleDeleteEntry}
               text={"Delete Entry"}
               appearance="minimal"
               textColor={Colors.primaryRed}
@@ -74,7 +97,7 @@ export default function Index() {
             <Button
               height={45}
               style={styles.button1}
-              onPress={() => {}}
+              onPress={handleEditEntry}
               text={"Edit Penalty"}
               appearance="minimal"
               textColor={Colors.primaryBlue}
@@ -86,7 +109,6 @@ export default function Index() {
     </Screen>
   );
 }
-
 
 const styles = StyleSheet.create({
   allButtonCont: {

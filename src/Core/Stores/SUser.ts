@@ -30,7 +30,7 @@ export default class SUser {
 
   async fetchData() {
     await this.fetchUser();
-    await this.fetchBackupInfo();
+    // await this.fetchBackupInfo();
   }
 
   async fetchUser() {
@@ -40,10 +40,10 @@ export default class SUser {
     });
   }
   async fetchBackupInfo() {
-    let res = await this.userRepo.getBackupInfo();
-    runInAction(() => {
-      this.backupInfo = res;
-    });
+    // let res = await this.userRepo.getBackupInfo();
+    // runInAction(() => {
+    //   this.backupInfo = res;
+    // });
   }
 
   async updateUserName(value: string) {

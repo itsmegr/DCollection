@@ -10,13 +10,13 @@ interface ICustomerItem {
   customerName: string;
   lastEntryTime: Date;
   amount: number;
-  onPress : () => void
+  onPress: () => void;
 }
 export default function CustomerItemForSummary({
   customerName,
   lastEntryTime,
   amount,
-  onPress
+  onPress,
 }: ICustomerItem) {
   //logic for showing date
 
@@ -52,9 +52,9 @@ export default function CustomerItemForSummary({
           />
         </View>
         <MoneyTextWithSomeDetailText
-          color={Colors.primaryGreen}
-          amount={amount}
-          textBelow="Remaining"
+          color={amount >= 0 ? Colors.primaryRed : Colors.primaryGreen}
+          amount={amount <= 0 ? -1 * amount : amount}
+          textBelow={amount >= 0 ? "Remaining" : "Collected extra"}
           moneyTextSize={16}
           descFontSize={10}
         />
@@ -62,4 +62,3 @@ export default function CustomerItemForSummary({
     </TouchableOpacity>
   );
 }
-

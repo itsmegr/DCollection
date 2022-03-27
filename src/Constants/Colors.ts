@@ -16,6 +16,7 @@ const Colors = {
 
   primaryRed: "#E81212",
   secondaryRed: "#EBD3D3",
+  tertiaryRed: "#b30000",
 
   primaryText: "#0E1117",
   border: "#6D6969",

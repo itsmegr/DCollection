@@ -11,9 +11,9 @@ export interface RUser {
   updateMobileNumber: (value: string) => Promise<void>;
   updateBusinessName: (value: string) => Promise<void>;
 
-  createBackupInfo: (value: MBackupInfo) => Promise<void>;
-  getBackupInfo: () => Promise<MBackupInfo>;
-  updateBackupInfo: (value: MBackupInfo) => Promise<void>;
+  // createBackupInfo: (value: MBackupInfo) => Promise<void>;
+  // getBackupInfo: () => Promise<MBackupInfo>;
+  // updateBackupInfo: (value: MBackupInfo) => Promise<void>;
 }
 
 export class MockUserRepo implements RUser {

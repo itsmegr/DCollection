@@ -28,7 +28,6 @@ type props = StackScreenProps<RootStackParamList, "Dashboard">;
 
 //try to handle all navigation related stuff on Index page
 export default function Dashboard({ navigation }: props) {
-  console.log("rerendered dashboard");
   function handleCustomerClick(customerId: number) {
     navigation.navigate("CustomerEntries", { customerId: customerId });
   }

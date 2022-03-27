@@ -15,10 +15,10 @@ import Header from "./Header";
 
 type props = StackScreenProps<RootStackParamList, "CustomerEntries">;
 export default function Index({ navigation, route }: props) {
-  let customerId = route.params.customerId;
   return (
     <Observer>
       {() => {
+        let customerId = route.params.customerId;
         const { CustomersStore } = useStores();
 
         const customerData = computed(() =>
@@ -29,11 +29,42 @@ export default function Index({ navigation, route }: props) {
           navigation.goBack();
         }
         function handleViewProfile() {
-          navigation.navigate("CustomerProfile", {customerId : customerId});
+          navigation.navigate("CustomerProfile", { customerId: customerId });
         }
 
         function handleEntryClicked(entry: MEntry) {
-          console.log("Entry with id ", entry.id, " Clicked");
+          navigation.navigate("EntryDetail", {
+            customer: customerData.customer,
+            entry: entry,
+            totalCollected: customerData.totalCollected,
+            totalGiven: customerData.totalGiven,
+          });
+        }
+
+        function handleYouCollected() {
+          navigation.navigate("EntryForm", {
+            customerId: customerId,
+            type: "collected",
+            edit: false,
+            prevEntry: {} as MEntry,
+          });
+        }
+
+        function handleAddPenalty() {
+          navigation.navigate("EntryForm", {
+            customerId: customerId,
+            type: "penalty",
+            edit: false,
+            prevEntry: {} as MEntry,
+          });
+        }
+        function handleYouGave() {
+          navigation.navigate("EntryForm", {
+            customerId: customerId,
+            type: "given",
+            edit: false,
+            prevEntry: {} as MEntry,
+          });
         }
 
         return (
@@ -52,7 +83,11 @@ export default function Index({ navigation, route }: props) {
               totalCollected={customerData.totalCollected}
               handleEntryClicked={handleEntryClicked}
             ></EntriesList>
-            <Buttons />
+            <Buttons
+              handleYouCollected={handleYouCollected}
+              handleYouGave={handleYouGave}
+              handleAddPenalty={handleAddPenalty}
+            />
           </Screen>
         );
       }}

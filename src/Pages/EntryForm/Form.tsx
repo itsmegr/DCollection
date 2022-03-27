@@ -29,6 +29,7 @@ interface props {
   dataSavedSuccessfully: () => void;
   edit: boolean;
   prevEntry: MEntry;
+  type: "given" | "collected" | "penalty";
 }
 
 interface imageType {
@@ -61,11 +62,16 @@ export default function Form(props: props) {
   const { CustomersStore } = useStores();
 
   async function handleSaveButton() {
+    if (amount === "") {
+      setError(true);
+      return;
+    }
+
     let newEntry: MEntry = {
       id: props.edit ? props.prevEntry.id : getRandomNumber(),
       customerId: props.customerId,
       amount: parseInt(amount),
-      type: "collected",
+      type: props.type,
       desc: desc,
       bills: images.map((val) => val.fileName),
       timeStamp: new Date(),
@@ -107,6 +113,22 @@ export default function Form(props: props) {
       setError(false);
     } else setError(true);
     setAmount(amount);
+  }
+
+  let buttonText, bgColor, overlayColor;
+
+  if (props.type === "collected") {
+    buttonText = "Collect";
+    bgColor = Colors.primaryGreen;
+    overlayColor = Colors.secondaryGreen;
+  } else if (props.type === "given") {
+    buttonText = "Give";
+    bgColor = Colors.primaryRed;
+    overlayColor = Colors.tertiaryRed;
+  } else {
+    buttonText = "Penalize";
+    bgColor = Colors.primaryBlue;
+    overlayColor = Colors.secondaryBlue;
   }
 
   return (
@@ -215,7 +237,12 @@ export default function Form(props: props) {
           })}
         </View>
       </View>
-      <ButtonAtBottom onPress={handleSaveButton} title={"Save"} />
+      <ButtonAtBottom
+        underlayColor={overlayColor}
+        background={bgColor}
+        onPress={handleSaveButton}
+        title={buttonText}
+      />
     </>
   );
 }

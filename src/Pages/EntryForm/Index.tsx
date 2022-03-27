@@ -1,8 +1,10 @@
+import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
 import { StatusBar } from "react-native";
 import Screen from "../../Atoms/Screen";
 import Colors from "../../Constants/Colors";
 import { MEntry } from "../../Core/Models/Index";
+import { RootStackParamList } from "../../Navigation/types";
 import HeaderWithIconText from "../../Organs/HeaderWithIconText";
 import Form from "./Form";
 
@@ -16,37 +18,43 @@ import Form from "./Form";
   entry ?: MEntry
 */
 
-export default function EntryForm() {
-  let en: MEntry = {
-    id: 7,
-    customerId: 1,
-    type: "collected",
-    amount: 200,
-    desc: "given to govind",
-    bills: ["5ed38a0c-80a0-4fe2-a877-02e7a59d4640.jpg"],
-    timeStamp: new Date(),
-  };
+type props = StackScreenProps<RootStackParamList, "EntryForm">;
+export default function EntryForm({ navigation, route }: props) {
+  let en = route.params.prevEntry;
 
-  function handleBackIconPress() {}
+  function handleBackIconPress() {
+    navigation.navigate("CustomerEntries", {
+      customerId: route.params.customerId,
+    });
+  }
 
   function dataSavedSuccessfully() {
-    console.log("Data saved successfully");
+    navigation.navigate("CustomerEntries", {
+      customerId: route.params.customerId,
+    });
   }
+
+  let headerText;
+
+  if (route.params.type === "collected") headerText = "You Collected";
+  else if (route.params.type === "given") headerText = "You Gave";
+  else headerText = "Add Penalty"
 
   return (
     <Screen>
       <StatusBar backgroundColor={Colors.primaryBlue}></StatusBar>
       <HeaderWithIconText
         icon={"arrow-left"}
-        text={"You Gave"}
+        text={headerText}
         handleIconPress={handleBackIconPress}
       ></HeaderWithIconText>
       <Form
-        customerId={1}
+        customerId={route.params.customerId}
         handleBackIconPress={handleBackIconPress}
         dataSavedSuccessfully={dataSavedSuccessfully}
-        edit={true}
-        prevEntry= {en as MEntry}
+        edit={route.params.edit}
+        prevEntry={route.params.prevEntry}
+        type={route.params.type}
       />
     </Screen>
   );
