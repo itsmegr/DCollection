@@ -81,23 +81,25 @@ export default function Form(props: props) {
       await CustomersStore.updateEntry(props.prevEntry.id, newEntry);
     } else await CustomersStore.addEntry(newEntry);
     //after saving the data in store
-    console.log(newEntry);
+    // console.log(newEntry);
     props.dataSavedSuccessfully();
   }
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 0.5,
-    });
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 0.5,
+      });
 
-    if (!result.cancelled) {
-      let [fileName1] = await SaveToPhoneStorage([result.uri]);
-      let [newImage] = await GetUrisFromImageName([fileName1]);
-      setImages([...images, newImage]);
-    }
+      if (!result.cancelled) {
+        let [fileName1] = await SaveToPhoneStorage([result.uri]);
+        let [newImage] = await GetUrisFromImageName([fileName1]);
+        setImages([...images, newImage]);
+      }
+    } catch (error) {}
   };
 
   function handleDeleteImage(deleImage: imageType) {

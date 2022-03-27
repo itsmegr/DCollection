@@ -28,7 +28,7 @@ export async function openDatabase(): Promise<SQLite.WebSQLDatabase> {
     //   "http://192.168.0.101:3100/download/db.db",
     //   FileSystem.documentDirectory + "SQLite/main-db.db"
     // );
-    console.log("DB file does not exists, new will created");
+    
   } else {
     // console.log("Exists deleting it")
     // FileSystem.deleteAsync(dbFile.uri)

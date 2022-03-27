@@ -49,7 +49,7 @@ const SaveToPhoneStorage = async (bills: string[]): Promise<string[]> => {
         }
       }
 
-    //   console.log("Bill saved names are as", billNames);
+    
       resolve(billNames);
       return;
     } catch (error) {

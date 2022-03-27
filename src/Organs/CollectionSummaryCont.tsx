@@ -1,15 +1,18 @@
-import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import Colors from '../Constants/Colors';
-import MoneyTextWithSomeDetailText from './MoneyTextWithSomeDetailText';
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import Colors from "../Constants/Colors";
+import MoneyTextWithSomeDetailText from "./MoneyTextWithSomeDetailText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface props {
-    givenAmount : number;
-    collectedAmount : number;
+  givenAmount: number;
+  collectedAmount: number;
 }
 
-export default function CollectionSummaryCont({givenAmount, collectedAmount}:props) {
+export default function CollectionSummaryCont({
+  givenAmount,
+  collectedAmount,
+}: props) {
   return (
     <View style={{ width: "100%" }}>
       <UnderlayColor />
@@ -30,12 +33,11 @@ function UnderlayColor() {
   );
 }
 
-
 function SummaryBox({ givenAmount, collectedAmount }: props) {
   return (
     <View
       style={{
-        height: 120,
+        height: 100,
         width: "90%",
         alignSelf: "center",
         top: -40,
@@ -51,7 +53,7 @@ function SummaryBox({ givenAmount, collectedAmount }: props) {
           justifyContent: "space-around",
           borderBottomColor: Colors.background,
           borderBottomWidth: 1,
-          height: "70%",
+          height: "100%",
           alignItems: "center",
         }}
       >
@@ -92,7 +94,7 @@ function ViewReportButton() {
   return (
     <TouchableOpacity
       style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-      onPress={() => console.log("View Report pressed")}
+      // onPress={() => console.log("View Report pressed")}
       activeOpacity={0.7}
     >
       <View

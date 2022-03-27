@@ -57,13 +57,13 @@ export class MockCustomerRepo implements RCustomers {
     //delete all entries of this customer
     let temp = this.mockEntries.filter((val) => {
       if (val.customerId == id) {
-        console.log("Matched qand elketed");
+        
       }
       return val.customerId != id;
     });
     this.mockEntries = temp;
     let ind = this.mockCustomers.findIndex((cust) => cust.id === id);
-    console.log("Index of deleted element is", ind);
+    
     this.mockCustomers.splice(ind, 1);
     // this.mockEntries = this.mockEntries.filter((ent) => ent.id!==id)
   }
@@ -89,7 +89,7 @@ export class MockCustomerRepo implements RCustomers {
 
   async deleteEntry(id: number) {
     let ind = this.mockEntries.findIndex((cust) => cust.id === id);
-    console.log("Index of deleted element is", ind);
+    
     this.mockEntries.splice(ind, 1);
     // this.mockEntries = this.mockEntries.filter((ent) => ent.id!==id)
   }

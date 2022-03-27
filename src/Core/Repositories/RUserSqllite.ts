@@ -23,7 +23,6 @@ export class UserRepo implements RUser {
       [value.name, value.mobileNumber, value.businessName]
     );
 
-    console.log("User created");
     return data;
   }
   async getUser(): Promise<MUser> {
@@ -38,7 +37,6 @@ export class UserRepo implements RUser {
       []
     );
     if (data.length == 0) {
-      console.log("No user is there, creating default");
       await execute(
         this.db,
         `

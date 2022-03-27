@@ -37,15 +37,19 @@ export default function App() {
   );
 
   async function askPermissions() {
-    await MediaLibrary.requestPermissionsAsync();
+    try {
+      await MediaLibrary.requestPermissionsAsync();
+    } catch (error) {}
   }
 
   async function loadingDependencies() {
-    let data1 = await getIsFirstTime();
-    setIsFirstTime(data1);
-    let db = await openDatabase();
-    await migrateDB(db);
-    setDB(db);
+    try {
+      let data1 = await getIsFirstTime();
+      setIsFirstTime(data1);
+      let db = await openDatabase();
+      await migrateDB(db);
+      setDB(db);
+    } catch (error) {}
   }
 
   //this is for starting Db

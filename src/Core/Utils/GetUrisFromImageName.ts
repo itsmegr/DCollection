@@ -10,7 +10,7 @@ const GetUrisFromImageName = async (names: string[]): Promise<imageType[]> => {
   //this will return null if no album exists
   if (album == null) {
     //this album does not exist
-    console.log("album does not exist, means no images are stored till now");
+
     return [];
   }
 
@@ -27,7 +27,7 @@ const GetUrisFromImageName = async (names: string[]): Promise<imageType[]> => {
 
   // data.assets.forEach((value, index) => {
   //   //here need to filter the names from the names stored in db and get there uri and use that to show images
-  //   // console.log(value.filename, value.uri);
+  //   //
   //   if (names.includes(value.filename)) {
   //     tempUris.push({ fileName: value.filename, uri: value.uri });
   //   }

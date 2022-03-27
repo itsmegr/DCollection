@@ -1,7 +1,11 @@
 import * as SQLite from "expo-sqlite";
 import * as FileSystem from "expo-file-system";
 import { Asset } from "expo-asset";
-import { IUpdateCustomerArgs, IUpdateEntryArgs, RCustomers } from "./RCustomers";
+import {
+  IUpdateCustomerArgs,
+  IUpdateEntryArgs,
+  RCustomers,
+} from "./RCustomers";
 import { MCustomer, MEntry } from "../Models/Index";
 import {
   ResultSet,
@@ -11,7 +15,6 @@ import {
 } from "expo-sqlite";
 import { execute, migrateDB, openDatabase } from "../Utils/SqlliteUtils";
 import { insert } from "formik";
-
 
 export class CustomerRepo implements RCustomers {
   db: SQLite.WebSQLDatabase;
@@ -34,7 +37,7 @@ export class CustomerRepo implements RCustomers {
         value.createdAt.toISOString(),
       ]
     );
-    console.log("Customer inserted");
+
     return data;
   }
 
@@ -64,8 +67,6 @@ export class CustomerRepo implements RCustomers {
     id: number,
     newValue: IUpdateCustomerArgs
   ): Promise<void> {
-    console.log("new upadted values are ", newValue);
-
     let { data } = await execute<void>(
       this.db,
       `UPDATE 
@@ -101,7 +102,6 @@ export class CustomerRepo implements RCustomers {
       [id]
     );
 
-    console.log("Customer deleted");
     return data;
   }
 
@@ -131,18 +131,14 @@ export class CustomerRepo implements RCustomers {
       // var x = this.db.last;
 
       //here we also need to add bills for that
-      console.log("Entry inserted id is ", insertId);
 
       //now add bills
       for (const bill of value.bills) {
         if (insertId) await this.addBill(insertId, bill);
       }
-      console.log("Bills added");
 
       return data;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   async addBill(entryId: number, uri: string) {
@@ -236,13 +232,11 @@ export class CustomerRepo implements RCustomers {
     `,
       [newValue.amount, newValue.timeStamp?.toISOString(), newValue.desc, id]
     );
-    console.log("Entry updated");
 
     //adding all the bills
     for (const bill of newValue.bills) {
       await this.addBill(id, bill);
     }
-    console.log("Bills updated");
   }
 
   //delete entry
@@ -275,7 +269,6 @@ async function check() {
   // });
   obj1.deleteCustomer(1);
   let data1 = await obj1.getCustomers();
-  console.log("customers", data1);
 
   // await obj1.addEntry({
   //   id: 123,
@@ -287,13 +280,12 @@ async function check() {
   //   timeStamp: new Date(),
   // });
   // let data = await obj1.getEntries();
-  // console.log("entry data ", data);
+  //
 
   // data = await obj1.getCustomers();
-  // console.log("New customers", data);
+  //
 
   let data = await obj1.getEntries();
-  console.log("entries ", data);
 }
 
 // check();
